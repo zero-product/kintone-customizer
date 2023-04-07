@@ -1,0 +1,26 @@
+{
+  "name": "@zero-product/kintone-customizer",
+  "version": "1.0.0",
+  "description": "kintone Customization Project",
+  "author": "K.Kato",
+  "license": "MIT",
+  "scripts": {
+    "cert": "node scripts/mkcert",
+    "dev": "set NODE_ENV=\"development\" && node scripts/esbuild.config -W",
+    "deploy": "set NODE_ENV=\"production\" && node scripts/esbuild.config"
+  },
+  "dependencies": {
+    "@kintone/rest-api-client": "^1.12.1",
+    "dayjs": "^1.11.5"
+  },
+  "devDependencies": {
+    "@kintone/customize-uploader": "^6.0.33",
+    "dotenv": "^16.0.3",
+    "esbuild": "^0.17.15",
+    "esbuild-envfile-plugin": "^1.0.3",
+    "esbuild-loader": "^2.20.0",
+    "esbuild-sass-plugin": "^2.8.0",
+    "fs-extra": "^11.1.1",
+    "mkcert": "^1.5.1"
+  }
+}
