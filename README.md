@@ -3,7 +3,7 @@
 ## 導入方法
 
 ```bash
-# Bitbucketからリポジトリをクローン
+# リポジトリをクローン
 git clone https://github.com/zero-product/kintone-customizer.git
 
 # プロジェクトディレクトリに移動
