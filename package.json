@@ -6,8 +6,9 @@
   "license": "MIT",
   "scripts": {
     "cert": "node scripts/mkcert",
-    "dev": "set NODE_ENV=\"development\" && node scripts/esbuild.config -W",
-    "deploy": "set NODE_ENV=\"production\" && node scripts/esbuild.config"
+    "build": "node scripts/esbuild.config",
+    "dev": "set NODE_ENV=\"development\" && yarn build -W",
+    "deploy": "set NODE_ENV=\"production\" && yan build -D"
   },
   "dependencies": {
     "@kintone/rest-api-client": "^1.12.1",

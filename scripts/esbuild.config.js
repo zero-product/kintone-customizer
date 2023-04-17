@@ -5,10 +5,11 @@ const { build, context }  = require('esbuild')
 const { sassPlugin }    = require('esbuild-sass-plugin');
 const esbuildEnv  = require('esbuild-envfile-plugin');
 const dotenv      = require('dotenv').config({path: path.resolve(__dirname, '../env/.env')})
-const deploy      = require('./uploader')
+const deployer    = require('./uploader')
 
 const args    = process.argv.slice(2)
-const watch   = args.includes('--watch') || args.includes('-W');
+const watch   = args.includes('--watch') || args.includes('-W')
+const deploy  = args.includes('--deploy') || args.includes('-D')
 const env     = dotenv.parsed;
 const outdir  = path.resolve(__dirname, '../dist')
 const outFile = `${outdir}/${watch ? 'app' : env.OUT_FILENAME || 'app'}.min.js`
@@ -50,7 +51,7 @@ removeDist().then(async _ => {
 
     // manifest.json でデプロイ
     console.log('🔄 Uploading...')
-    await deploy()
+    await deployer()
 
     console.log('✅ Uploaded!')
     console.log(`------------------------------------------------`)
@@ -62,11 +63,13 @@ removeDist().then(async _ => {
     console.log('🔨 Building...')
     await build(builder)
 
-    // manifest.json でデプロイ
-    console.log('🔄 Uploading...')
-    await deploy()
+    if (deploy) {
+      // manifest.json でデプロイ
+      console.log('🔄 Uploading...')
+      await deployer()
 
-    console.log('✅ Uploaded!')
+      console.log('✅ Uploaded!')
+    }
   }
 }).catch(e => {
   console.log('🚫 Error!')

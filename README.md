@@ -15,7 +15,7 @@ yarn install
 
 ### 1. 環境変数ファイル(.env)
 
-`./env/.env.example`を同ディレクトリに`./env/.env`として複製。
+`./env`ディレクトリに`.env`ファイルを作成し、以下のように記述してください。
 
 ```bash
 APP_ID=           # 対象アプリID
@@ -42,6 +42,7 @@ yarn cert
 |コマンド|概要|
 |-|-|
 |`yarn cert`|自己証明書発行|
+|`yarn build`|プラグインを生成(`plugin.zip`)|
 |`yarn dev`|ローカルサーバが立ち上がり、ソースコードを更新するとkintoneに反映される。|
 |`yarn deploy`|カスタマイズをkintoneに"本番モード"で反映します。|
 
