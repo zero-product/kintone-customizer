@@ -8,7 +8,7 @@
     "cert": "node scripts/mkcert",
     "build": "node scripts/esbuild.config",
     "dev": "set NODE_ENV=\"development\" && yarn build -W",
-    "deploy": "set NODE_ENV=\"production\" && yan build -D"
+    "deploy": "set NODE_ENV=\"production\" && yarn build -D"
   },
   "dependencies": {
     "@kintone/rest-api-client": "^1.12.1",
