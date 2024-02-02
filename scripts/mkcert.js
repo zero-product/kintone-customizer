@@ -1,23 +1,30 @@
 const fs = require("fs");
-const mkcert = require('mkcert');
+const { createCA, createCert } = require('mkcert');
 
 // create a certificate authority
-mkcert.createCA({
-  organization: 'Hello CA',
-  countryCode: 'JP',
-  state: 'Kochi',
-  locality: 'Kochi',
-  validityDays: 365
-}).then(async ca => {
+createCA({
+  organization: 'kintone CA',
+  countryCode: "JP",
+  state: "Kochi",
+  locality: "Kochi",
+  validity: 365
+}).then(ca => {
   // then create a tls certificate
-  const cert = await mkcert.createCert({
+  createCert({
+    ca: { key: ca.key, cert: ca.cert },
     domains: ['127.0.0.1', 'localhost'],
-    validityDays: 365,
-    caKey: ca.key,
-    caCert: ca.cert
-  });
-  console.log(cert.key, cert.cert);
+    validity: 365,
+  }).then(_ => {
+    if (!fs.existsSync('cert')) fs.mkdirSync('cert');
 
-  fs.writeFileSync('./env/cert-key.pem', ca.key);
-  fs.writeFileSync('./env/cert.pem', ca.cert);
-}).catch(console.error);
+    fs.writeFileSync('./cert/cert-key.pem', ca.key);
+    fs.writeFileSync('./cert/cert.pem', ca.cert);
+  }).catch(e => {
+    console.error(e)
+    process.exit(1)
+  })
+  // console.log(cert.key, cert.cert);
+}).catch(e => {
+  console.error(e)
+  process.exit(1)
+});
