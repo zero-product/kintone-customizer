@@ -6,22 +6,23 @@
   "license": "MIT",
   "scripts": {
     "cert": "node scripts/mkcert",
-    "build": "node scripts/esbuild.config",
-    "dev": "set NODE_ENV=\"development\" && yarn build -W",
-    "deploy": "set NODE_ENV=\"production\" && yarn build -D"
+    "build": "node scripts/cli",
+    "dev": "node scripts/cli -w",
+    "deploy": "node scripts/cli -d"
   },
   "dependencies": {
-    "@kintone/rest-api-client": "^1.12.1",
-    "dayjs": "^1.11.5"
+    "@kintone/rest-api-client": "^5.0.8",
+    "dayjs": "^1.11.10"
   },
   "devDependencies": {
-    "@kintone/customize-uploader": "^6.0.33",
-    "dotenv": "^16.0.3",
-    "esbuild": "^0.17.15",
-    "esbuild-envfile-plugin": "^1.0.3",
-    "esbuild-loader": "^2.20.0",
-    "esbuild-sass-plugin": "^2.8.0",
-    "fs-extra": "^11.1.1",
-    "mkcert": "^1.5.1"
+    "@kintone/customize-uploader": "^8.0.8",
+    "dotenv": "^16.4.1",
+    "esbuild": "^0.20.0",
+    "esbuild-envfile-plugin": "^1.0.5",
+    "esbuild-loader": "^4.0.3",
+    "esbuild-sass-plugin": "^3.0.0",
+    "fs-extra": "^11.2.0",
+    "mkcert": "^3.2.0",
+    "yargs": "^17.7.2"
   }
 }

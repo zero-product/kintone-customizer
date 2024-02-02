@@ -1,8 +1,9 @@
 /node_modules
 /dist
-*.pem
+/cert
 .env
 auth.json
 manifest*.json
 yarn.lock
 yarn-error.log
+config.json
