@@ -165,24 +165,20 @@ function outputManifest(watch, distDir = 'dist') {
           fileExists(`${distDir}/${config.filename || 'app'}${watch ? '' : '.min'}.css`)
         ) {
           const manifest = config?.manifest || {}
-          if (Boolean(config.desktop)) {
-            manifest.desktop = watch ? {
-              js: fileExists(`${distDir}/${config.filename || 'app'}.js`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.js` ] : [],
-              css: fileExists(`${distDir}/${config.filename || 'app'}.css`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.css` ] : [],
-            } : {
-              js: fileExists(`${distDir}/${config.filename || 'app'}.min.js`) ? [ `${distDir}/${config.filename || 'app'}.min.js` ] : [],
-              css: fileExists(`${distDir}/${config.filename || 'app'}.min.css`) ? [ `${distDir}/${config.filename || 'app'}.min.css` ] : [],
-            }
-          }
-          if (Boolean(config.mobile)) {
-            manifest.mobile = watch ? {
-              js: fileExists(`${distDir}/${config.filename || 'app'}.js`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.js` ] : [],
-              css: fileExists(`${distDir}/${config.filename || 'app'}.css`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.css` ] : [],
-            } : {
-              js: fileExists(`${distDir}/${config.filename || 'app'}.min.js`) ? [ `${distDir}/${config.filename || 'app'}.min.js` ] : [],
-              css: fileExists(`${distDir}/${config.filename || 'app'}.min.css`) ? [ `${distDir}/${config.filename || 'app'}.min.css` ] : [],
-            }
-          }
+          manifest.desktop = Boolean(config.desktop) ? (watch ? {
+            js: fileExists(`${distDir}/${config.filename || 'app'}.js`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.js` ] : [],
+            css: fileExists(`${distDir}/${config.filename || 'app'}.css`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.css` ] : [],
+          } : {
+            js: fileExists(`${distDir}/${config.filename || 'app'}.min.js`) ? [ `${distDir}/${config.filename || 'app'}.min.js` ] : [],
+            css: fileExists(`${distDir}/${config.filename || 'app'}.min.css`) ? [ `${distDir}/${config.filename || 'app'}.min.css` ] : [],
+          }) : {js: [], css: []}
+          manifest.mobile = Boolean(config.mobile) ? (watch ? {
+            js: fileExists(`${distDir}/${config.filename || 'app'}.js`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.js` ] : [],
+            css: fileExists(`${distDir}/${config.filename || 'app'}.css`) ? [ `https://localhost:3000/dist/${config.filename || 'app'}.css` ] : [],
+          } : {
+            js: fileExists(`${distDir}/${config.filename || 'app'}.min.js`) ? [ `${distDir}/${config.filename || 'app'}.min.js` ] : [],
+            css: fileExists(`${distDir}/${config.filename || 'app'}.min.css`) ? [ `${distDir}/${config.filename || 'app'}.min.css` ] : [],
+          }) : {js: [], css: []}
 
           fs.writeFileSync(path.resolve('manifest.json'), JSON.stringify(manifest, null, "\t"))
           resolve('manifest.json')
