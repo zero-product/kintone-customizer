@@ -81,7 +81,7 @@ run().then(async _ => {
     await ctx.serve({
       port: argv.port,
       host: 'localhost',
-      servedir: "../",
+      servedir: "/",
       keyfile: path.resolve('./cert/cert-key.pem'),
       certfile: path.resolve('./cert/cert.pem'),
     })
