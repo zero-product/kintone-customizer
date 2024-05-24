@@ -12,7 +12,7 @@ cd kintone-customizer
 # モジュール、ライブラリ インストール
 yarn install
 ```
-にｔにｔ
+
 ### 1. 設定ファイル(config.js)
 
 `config.js`ファイルを作成し、以下のように記述してください。  
