@@ -14,11 +14,11 @@ createCA({
     ca: { key: ca.key, cert: ca.cert },
     domains: ['127.0.0.1', 'localhost'],
     validity: 365,
-  }).then(_ => {
+  }).then(cert => {
     if (!fs.existsSync('cert')) fs.mkdirSync('cert');
 
-    fs.writeFileSync('./cert/cert-key.pem', ca.key);
-    fs.writeFileSync('./cert/cert.pem', ca.cert);
+    fs.writeFileSync('./cert/cert-key.pem', cert.key);
+    fs.writeFileSync('./cert/cert.pem', cert.cert);
   }).catch(e => {
     console.error(e)
     process.exit(1)
