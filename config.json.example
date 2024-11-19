@@ -1,14 +1,12 @@
 {
+  "app": 0,
+  "scope": "ALL"
   "filename": "app",
   "desktop": true,
   "mobile": true,
+  "base_url": "https://~.cybozu.com",
   "auth": {
-    "base_url": "https://~.cybozu.com",
     "username": "",
     "password": ""
-  },
-  "manifest": {
-    "app": 165,
-    "scope": "ALL"
   }
 }

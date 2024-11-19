@@ -4,7 +4,7 @@
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/zero-product/kintone-customizer.git
+git clone https://git.zygapp.org/zyg/kintone-customizer.git
 
 # プロジェクトディレクトリに移動
 cd kintone-customizer
@@ -13,51 +13,53 @@ cd kintone-customizer
 yarn install
 ```
 
-### 1. 設定ファイル(config.js)
+### 設定ファイル(config.js)
 
 `config.js`ファイルを作成し、以下のように記述してください。  
 ※ 以下をコピペする場合は、コメント(`#`以降の文字)をすべて削除してください。
 
 ```json
 {
-  "filename": "app",  # 出力するJS,CSSのファイル名
-  "desktop": true,    # デスクトップ版対応
-  "mobile": true,     # スマホ版対応
+  "app": 0,
+  "scope": "ALL"
+  "filename": "app",
+  "desktop": true,
+  "mobile": true,
+  "base_url": "https://~.cybozu.com",
   "auth": {
-    "base_url": "https://~.cybozu.com", # kintone環境URL(最後のスラッシュ`/`は不要)
-    "username": "", # デプロイ権限のあるユーザーのユーザー名(例: Administrator)
-    "password": ""  # デプロイ権限のあるユーザーのパスワード
-  },
-  "manifest": {
-    "app": 165,     # 対象アプリID
-    "scope": "ALL"  # 権限(ALL, ADMIN or NONE)
+    "username": "",
+    "password": ""
   }
 }
 ```
 
-### 2. SSL 証明書発行
+|プロパティ|型|備考|
+|-|:-:|-|
+|`app`|`Number`|対象アプリID|
+|`scope`|`String`|権限(`ALL`, `ADMIN` or `NONE`)|
+|`filename`|`String`|出力するJS,CSSのファイル名|
+|`desktop`|`Boolean`|デスクトップ版対応|
+|`mobile`|`Boolean`|スマホ版対応|
+|`base_url`|`String`|kintone環境URL(最後のスラッシュ`/`は不要)|
+|`auth`|`Object`|認証情報|
+|`auth.username`|`String`|デプロイ権限のあるユーザーのユーザー名|
+|`auth.password`|`String`|デプロイ権限のあるユーザーのパスワード|
 
-開発モード実行用に自己証明書を発行
-
-```bash
-yarn cert
-```
 
 ## コマンド一覧
 
 |コマンド|概要|
 |-|-|
-|`yarn cert`|自己証明書発行(Chocoratey or Homebrewによるmkcertでの生成を推奨)|
 |`yarn build`|`dist`ディレクトリにカスタマイズファイルを生成します。|
 |`yarn dev`|ローカルサーバが立ち上がり、ソースコードを更新するとkintoneに反映されます。|
 |`yarn deploy`|カスタマイズをビルドし、kintoneに"本番モード"でアップロードします。|
 
-## Vue.js(Option)
+## 【Option】Vue.js
 
 1. Vue3, esbuild用Vue3ローダー インストール
 
     ```bash
-    yarn add -D vue esbuild-plugin-vue3
+    yarn add -D vue unplugin-vue
     ```
 
 2. esbuild (`./esbuild.config.js`) 設定変更
@@ -68,13 +70,13 @@ yarn cert
 
     const { sassPlugin } = require('esbuild-sass-plugin');
     const esbuildEnv = require('esbuild-envfile-plugin');
-    const vuePlugin = require("esbuild-plugin-vue3");   // ← 追加
+    const Vue = require("unplugin-vue/esbuild");   // ← 追加
 
     module.exports = {
       plugins: [
         esbuildEnv,
         sassPlugin(),
-        vuePlugin(),  // ← 追加
+        Vue(),  // ← 追加
       ],
     }
     ```
@@ -92,8 +94,7 @@ yarn cert
 
 4. `main.js`でVue3を読込み
 
-    ```javascript:./src/main.js
-
+    ```javascript:./src/app.js
     import { createApp } from 'vue'
     import App from './App.vue'
 

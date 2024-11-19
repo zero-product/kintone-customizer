@@ -1,16 +1,3 @@
-<script type="module">
-  async function loadJSON() {
-    try {
-      const response = await fetch('/config.json');
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-      const config  = await response.json();
-      const baseUrl = config.auth.base_url
-      const appId   = config.manifest.app
-      location.href = baseUrl+'/k/'+appId
-    } catch (error) {
-      console.error('Failed to load JSON:', error);
-    }
-  }
-  loadJSON();
-</script>
+<script>
+  fetch(location.href+'/config.json').then(_ => _.json()).then(conf => location.href = conf.base_url+'/k/'+conf.app)
+  </script>
